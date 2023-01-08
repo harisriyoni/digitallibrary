@@ -1,9 +1,11 @@
 ﻿@page "/"
+@inject iBukuservice Bukuservice
+
+<PageTitle>Data Buku</PageTitle>
 <body>
-    <h1>Data Buku Pelanggan</h1>
+    <h2>Data Buku Tersedia</h2>
     <table class="table table-striped">
         <thead>
-            <div>
             <tr>
                 <th>ID Buku</th>
                 <th>Judul Buku</th>
@@ -11,18 +13,25 @@
                 <th>Penerbit</th>
                 <th>Jumlah Halaman</th>
             </tr>
-            </div>
         </thead>
         <tbody>
-            <div>
-            <tr>
-                <td>1</td>
-                <td>The Great Gatsby</td>
-                <td>Novel</td>
-                <td>Charles Scribner's Sons</td>
-                <td>180</td>
-            </tr>
-            </div>
+            @foreach (var books in Bukuservice.buku)
+            {
+                <tr>
+                    <td>@books.Id_buku</td>
+                    <td>@books.Judul_buku</td>
+                    <td>@books.Genre_id</td>
+                    <td>@books.Penerbit</td>
+                    <td>@books.Jumlah_halaman</td>
+                </tr>
+            }
         </tbody>
     </table>
 </body>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await Bukuservice.GetDataBuku();
+    }
+}

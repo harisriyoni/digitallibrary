@@ -1,3 +1,4 @@
+global using BlazorApp2.Shared;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);

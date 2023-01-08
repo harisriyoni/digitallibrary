@@ -1,32 +1,45 @@
 ﻿@page "/kelola-data"
+@inject iBukuservice Bukuservice
+@inject NavigationManager NavigationManager
 <body>
 <h1>Selamat datang di Halaman Kelola Buku</h1>
 <table class="table table-striped">
   <thead>
-      <div>
     <tr>
       <th>ID Buku</th>
       <th>Judul Buku</th>
       <th>Genre Buku</th>
       <th>Penerbit</th>
       <th>Jumlah Halaman</th>
-      <th>Edit</th>
-      <th>Delete</th>
+      <th>Genre</th>
     </tr>
-    </div>
   </thead>
   <tbody>
-      <div>
-    <tr>
-      <td>1</td>
-      <td>The Great Gatsby</td>
-      <td>Novel</td>
-      <td>Charles Scribner's Sons</td>
-      <td>180</td>
-       <td><a href="edit" class="btn btn-primary">Edit</a></td>
-       <td><a href="Delete" class="btn btn-danger">Delete</a></td>
-    </tr>
-    </div>
+      @foreach (var books in Bukuservice.buku)
+            {
+                     <tr>
+                        <td>@books.Id_buku</td>
+                        <td>@books.Judul_buku</td>
+                        <td>@books.Genre_id</td>
+                        <td>@books.Penerbit</td>
+                        <td>@books.Jumlah_halaman</td>
+                        <td>@books.Genre.Nama_Genre</td>
+                    <td><button class="btn btn-primary" @onclick="(() => ShowBuku(books.Id_buku))">Edit</button></td>
+                    <td><a href="Delete" class="btn btn-danger">Delete</a></td>
+                    </tr>
+            }
+
   </tbody>
 </table>
 </body>
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await Bukuservice.GetDataBuku();
+    }
+
+    void ShowBuku(int id)
+    {
+        NavigationManager.NavigateTo($"books/{id}");
+    }
+}
