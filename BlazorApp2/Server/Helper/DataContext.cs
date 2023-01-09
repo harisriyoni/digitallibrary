@@ -10,11 +10,11 @@
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Genre>().HasData(
-            new Genre
-            {
-               Genre_id = 1,
-               Nama_Genre = "Horor"
-            },
+                new Genre
+                {
+                    Genre_id = 1,
+                    Nama_Genre = "Horor"
+                },
             new Genre
             {
                 Genre_id = 2,
@@ -61,7 +61,7 @@
                 Jumlah_halaman = 250,
                 Genre_id = 3
             }
-                );
+                ) ;
         }
 
         public DbSet<Buku> Buku { get; set; }
