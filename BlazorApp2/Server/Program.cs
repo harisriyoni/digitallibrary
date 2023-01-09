@@ -1,4 +1,6 @@
 global using BlazorApp2.Shared;
+global using Microsoft.EntityFrameworkCore;
+global using BlazorApp2.Server.Helper;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseMySQL(builder.Configuration.GetConnectionString("Connection")));
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
